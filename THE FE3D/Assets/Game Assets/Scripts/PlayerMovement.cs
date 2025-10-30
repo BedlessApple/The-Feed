@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,31 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float normalHeight = 2f;
 
     private CharacterController controller;
-    private Vector2 moveInput;
-    private bool isSprinting;
-    private bool isCrouching;
-    private bool jumpPressed;
     private Vector3 velocity;
-
-    private PlayerControls controls;
-
-    void Awake()
-    {
-        controls = new PlayerControls();
-
-        controls.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => moveInput = Vector2.zero;
-
-        controls.Gameplay.Sprint.performed += ctx => isSprinting = true;
-        controls.Gameplay.Sprint.canceled += ctx => isSprinting = false;
-
-        controls.Gameplay.Crouch.performed += ctx => ToggleCrouch();
-
-        controls.Gameplay.Jump.performed += ctx => jumpPressed = true;
-    }
-
-    void OnEnable() => controls.Gameplay.Enable();
-    void OnDisable() => controls.Gameplay.Disable();
+    private bool isCrouching;
 
     void Start()
     {
@@ -52,25 +28,26 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
 
         float speed = walkSpeed;
-        if (isSprinting && !isCrouching) speed = sprintSpeed;
+        if (Input.GetKey(KeyCode.LeftShift) && !isCrouching) speed = sprintSpeed;
         if (isCrouching) speed = crouchSpeed;
 
-        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
 
-        if (jumpPressed && isGrounded && !isCrouching)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouching)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            jumpPressed = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isCrouching = !isCrouching;
+            controller.height = isCrouching ? crouchHeight : normalHeight;
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-    }
-
-    void ToggleCrouch()
-    {
-        isCrouching = !isCrouching;
-        controller.height = isCrouching ? crouchHeight : normalHeight;
     }
 }
