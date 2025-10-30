@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(CharacterController))]
+public class PlayerMovement : NetworkBehaviour
 {
     [Header("Movement Settings")]
     public float walkSpeed = 4f;
@@ -19,21 +21,38 @@ public class PlayerMovement : MonoBehaviour
     public float rechargeTick = 1.5f;
     public Slider sprintBar;
 
+    [Header("Camera")]
+    public GameObject playerCamera;
+
     private CharacterController controller;
     private Vector3 velocity;
     private bool isCrouching;
     private float currentSprintTime;
     private float rechargeTimer;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
         controller = GetComponent<CharacterController>();
         currentSprintTime = maxSprintTime;
-        if (sprintBar) sprintBar.maxValue = maxSprintTime;
+
+        // Disable camera for non-owners
+        if (!IsOwner && playerCamera)
+        {
+            playerCamera.SetActive(false);
+        }
+
+        // Initialize UI for owner
+        if (IsOwner && sprintBar)
+        {
+            sprintBar.maxValue = maxSprintTime;
+            sprintBar.value = currentSprintTime;
+        }
     }
 
     void Update()
     {
+        if (!IsOwner) return;
+
         bool isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
 
