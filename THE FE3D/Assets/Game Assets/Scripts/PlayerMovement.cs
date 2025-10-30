@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,22 +13,13 @@ public class PlayerMovement : MonoBehaviour
     public float crouchHeight = 1f;
     public float normalHeight = 2f;
 
-    [Header("Sprint Stamina")]
-    public float maxSprintTime = 10f;
-    public float rechargeTick = 1.5f;
-    public Slider sprintBar;
-
     private CharacterController controller;
     private Vector3 velocity;
     private bool isCrouching;
-    private float currentSprintTime;
-    private float rechargeTimer;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        currentSprintTime = maxSprintTime;
-        if (sprintBar) sprintBar.maxValue = maxSprintTime;
     }
 
     void Update()
@@ -38,30 +28,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && velocity.y < 0) velocity.y = -2f;
 
         float speed = walkSpeed;
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && currentSprintTime > 0 && !isCrouching;
-
-        if (isSprinting)
-        {
-            speed = sprintSpeed;
-            currentSprintTime -= Time.deltaTime;
-            rechargeTimer = 0f;
-        }
-        else
-        {
-            rechargeTimer += Time.deltaTime;
-            if (rechargeTimer >= rechargeTick && currentSprintTime < maxSprintTime)
-            {
-                currentSprintTime += 1f;
-                rechargeTimer = 0f;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            isCrouching = !isCrouching;
-            controller.height = isCrouching ? crouchHeight : normalHeight;
-        }
-
+        if (Input.GetKey(KeyCode.LeftShift) && !isCrouching) speed = sprintSpeed;
         if (isCrouching) speed = crouchSpeed;
 
         float x = Input.GetAxis("Horizontal");
@@ -74,9 +41,13 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isCrouching = !isCrouching;
+            controller.height = isCrouching ? crouchHeight : normalHeight;
+        }
+
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
-        if (sprintBar) sprintBar.value = currentSprintTime;
     }
 }

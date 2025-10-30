@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   playerBody: {fileID: 2074295900}
-  sensitivity: 149.5
+  sensitivity: 100
 --- !u!1 &344119400
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,16 +2169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e59e8fb764ca94cb4aec208299a41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  walkSpeed: 5.62
-  sprintSpeed: 10.54
+  walkSpeed: 11.99
+  sprintSpeed: 8
   crouchSpeed: 2
   jumpHeight: 2
-  gravity: -12.92
+  gravity: -9.81
   crouchHeight: 1
   normalHeight: 2
-  maxSprintTime: 10
-  rechargeTick: 1.5
-  sprintBar: {fileID: 1651960590}
 --- !u!1 &2139538025
 GameObject:
   m_ObjectHideFlags: 0
