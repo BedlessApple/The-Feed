@@ -17,12 +17,12 @@ public class ConnectUiScript : MonoBehaviour
     private void HostButtonOnClick()
     {
         NetworkManager.Singleton.StartHost();
-        SceneManager.LoadScene("GameScene"); // Replace with your actual scene name
+        NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
     private void ClientButtonOnClick()
     {
         NetworkManager.Singleton.StartClient();
-        SceneManager.LoadScene("GameScene"); // Replace with your actual scene name
+        // Clients do not manually load the scene — host syncs it
     }
 }
