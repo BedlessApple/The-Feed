@@ -16,7 +16,7 @@ MonoBehaviour:
   injectionPoint: 600
   fetchColorBuffer: 1
   requirements: 0
-  passMaterial: {fileID: 2100000, guid: 749b9069dc4742c5bfa5c74644049926, type: 2}
+  passMaterial: {fileID: 2100000, guid: 997afb91f91cdb6408fd2e917fe77d9d, type: 2}
   passIndex: 0
   bindDepthStencilAttachment: 0
   m_Version: 1
@@ -91,14 +91,14 @@ MonoBehaviour:
   m_Active: 1
   m_Settings:
     AOMethod: 0
-    Downsample: 0
+    Downsample: 1
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 0.4
-    DirectLightingStrength: 0.25
+    Intensity: 1
+    DirectLightingStrength: 0.525
     Radius: 0.3
-    Samples: 1
-    BlurQuality: 0
+    Samples: 2
+    BlurQuality: 2
     Falloff: 100
     SampleCount: -1
