@@ -1,4 +1,21 @@
 ﻿<Solution>
+  <Project Path="Unity.Multiplayer.Playmode.WorkflowUI.Editor.csproj" />
+  <Project Path="Unity.Multiplayer.PlayMode.Scenarios.Editor.csproj" />
+  <Project Path="Unity.Netcode.Runtime.csproj" />
+  <Project Path="Unity.Multiplayer.Playmode.VirtualProjects.Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Unity.Multiplayer.Playmode.Common.Editor.csproj" />
+  <Project Path="Unity.Multiplayer.PlayMode.Analytics.Editor.csproj" />
+  <Project Path="Unity.Multiplayer.Playmode.Workflow.Editor.csproj" />
+  <Project Path="Unity.Networking.Transport.csproj" />
+  <Project Path="Unity.Netcode.Editor.csproj" />
+  <Project Path="Unity.Networking.Editor.csproj" />
+  <Project Path="Unity.Netcode.Editor.CodeGen.csproj" />
+  <Project Path="Unity.Multiplayer.PlayMode.Configurations.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Unity.InternalAPIEditorBridge.022.csproj" />
+  <Project Path="Unity.Multiplayer.Playmode.csproj" />
+  <Project Path="Unity.Multiplayer.PlayMode.Editor.Bridge.csproj" />
+  <Project Path="Unity.Netcode.PackageChecker.Editor.csproj" />
+  <Project Path="Unity.Multiplayer.Playmode.Common.Runtime.csproj" />
 </Solution>
